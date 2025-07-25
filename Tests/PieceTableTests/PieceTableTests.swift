@@ -173,14 +173,14 @@ struct tressTests {
         func testRepeatedInsertions() {
             var table = PieceTable("")
             let opCount = 10_000
-            let startTime = CFAbsoluteTimeGetCurrent()
+//            let startTime = CFAbsoluteTimeGetCurrent()
 
             for i in 0..<opCount {
                 let index = table.endIndex // table.index(at: table.count / 2) ?? table.endIndex
                 table.replaceSubrange(index..<index, with: Array("x".utf16))
             }
 
-            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+//            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
             #expect(table.count == opCount)
 //            print("⏱ testRepeatedInsertions: \(elapsed)s (avg: \(elapsed / Double(opCount))s)")
 //            print("🧩 pieces after insertions: \(table.internalPieceCount)")
@@ -191,7 +191,7 @@ struct tressTests {
             let initialString = String(repeating: "x", count: 10_000)
             var table = PieceTable(initialString)
             let opCount = 5000
-            let startTime = CFAbsoluteTimeGetCurrent()
+//            let startTime = CFAbsoluteTimeGetCurrent()
 
             for _ in 0..<opCount {
                 let mid = table.count / 2
@@ -200,7 +200,7 @@ struct tressTests {
                 table.replaceSubrange(i..<j, with: [])
             }
 
-            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+//            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
             #expect(table.count == initialString.count - opCount)
 //            print("⏱ testRepeatedDeletions: \(elapsed)s (avg: \(elapsed / Double(opCount))s)")
 //            print("🧩 pieces after deletions: \(table.internalPieceCount)")
@@ -210,7 +210,7 @@ struct tressTests {
         func testAlternatingInsertDelete() {
             var table = PieceTable("0123456789")
             let opCount = 5000
-            let startTime = CFAbsoluteTimeGetCurrent()
+//            let startTime = CFAbsoluteTimeGetCurrent()
 
             for i in 0..<opCount {
                 let index = table.index(at: min(5, table.count))!
@@ -222,7 +222,7 @@ struct tressTests {
                 }
             }
 
-            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+//            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
 //            print("⏱ testAlternatingInsertDelete: \(elapsed)s (avg: \(elapsed / Double(opCount))s)")
 //            print("🧩 pieces after alternating ops: \(table.internalPieceCount)")
         }
@@ -231,7 +231,7 @@ struct tressTests {
         func testReplaceAcrossExpandingTable() {
             var table = PieceTable("a")
             let opCount = 200
-            let startTime = CFAbsoluteTimeGetCurrent()
+//            let startTime = CFAbsoluteTimeGetCurrent()
 
             for i in 0..<opCount {
                 let newContent = String(repeating: "x", count: i)
@@ -241,7 +241,7 @@ struct tressTests {
                 #expect(table.count == newContent.count)
             }
 
-            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
+//            let elapsed = CFAbsoluteTimeGetCurrent() - startTime
 //            print("⏱ testReplaceAcrossExpandingTable: \(elapsed)s (avg: \(elapsed / Double(opCount))s)")
 //            print("🧩 pieces after full replace cycles: \(table.internalPieceCount)")
         }
