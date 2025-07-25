@@ -231,14 +231,14 @@ extension PieceTable: RangeReplaceableCollection {
     }
     
     @discardableResult
-    mutating func editSubrange<C, R>(
+    public mutating func editSubrange<C, R>(
       _ subrange: R,
       with newElements: C
     ) -> PieceTableEdit? where C: Collection, R: RangeExpression, unichar == C.Element, Index == R.Bound {
         // Capture the original text for undo
         let range = subrange.relative(to: self)
 
-        let replacedText = self[range].map { $0 }
+        let replacedText = Array(self[range])
         
         replaceSubrange(subrange, with: newElements)
         
@@ -247,28 +247,6 @@ extension PieceTable: RangeReplaceableCollection {
         return PieceTableEdit(replacedRange: range, replacedText: replacedText, insertedText: insertedText)
 
     }
-    
-    
-    mutating func undoEdit(_ edit: PieceTableEdit) {
-        // Undo is replacing insertedText with replacedText in replacedRange
-        editSubrange(edit.replacedRange, with: edit.replacedText)
-    }
-
-    mutating func redoEdit(_ edit: PieceTableEdit) {
-        // Redo is replacing replacedText with insertedText in replacedRange
-        editSubrange(edit.replacedRange, with: edit.insertedText)
-    }
-    
-    /*
-     
-     // Capture the original text for undo
-         let replacedText = self[range].map { $0 }
-     
-     let insertedText = Array(newElements)
-
-     return PieceTableEdit(replacedRange: range, replacedText: replacedText, insertedText: insertedText)
-
-     */
 }
 
 extension PieceTable {
