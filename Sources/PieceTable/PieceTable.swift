@@ -270,7 +270,7 @@ extension PieceTable {
 
 extension PieceTable {
     // Convert NSRange to PieceTable range
-    func range(from nsRange: NSRange) -> Range<Index>? {
+    public func range(from nsRange: NSRange) -> Range<Index>? {
         guard let startIndex = self.index(at: nsRange.location),
               let endIndex = self.index(at: nsRange.location + nsRange.length) else {
             return nil
@@ -279,7 +279,7 @@ extension PieceTable {
     }
     
     // Convert PieceTable range to NSRange
-    func nsRange(from range: Range<Index>) -> NSRange? {
+    public func nsRange(from range: Range<Index>) -> NSRange? {
         guard let startOffset = self.offset(of: range.lowerBound),
               let endOffset = self.offset(of: range.upperBound) else {
             return nil
@@ -288,7 +288,7 @@ extension PieceTable {
     }
     
     // Helper to get offset from index
-    func offset(of index: Index) -> Int? {
+    public func offset(of index: Index) -> Int? {
         var current = startIndex
         var offset = 0
         
